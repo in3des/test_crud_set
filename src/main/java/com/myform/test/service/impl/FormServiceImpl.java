@@ -31,32 +31,7 @@ public class FormServiceImpl implements FormService {
         Form newForm = new Form(newFormDto.getUsername(),
                 newFormDto.getAgreement());
 
-        Set<Integer> strSectors = newFormDto.getSectorsId();
-        Set<Sector> sectors = new HashSet<>();
-
-        if (strSectors == null) {
-            Sector sectorManufacturing = sectorRepository.findById(1)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            sectors.add(sectorManufacturing);
-        } else {
-            strSectors.forEach(sector -> {
-                switch (sector) {
-                    case 19:
-                        Sector sectorConstructionMaterials = sectorRepository.findById(19)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        sectors.add(sectorConstructionMaterials);
-
-                        break;
-                    case 18:
-                        Sector sectorElectronicsOptics = sectorRepository.findById(18)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        sectors.add(sectorElectronicsOptics);
-
-
-                }
-
-            });
-        }
+        Set<Sector> sectors = parseSectorIds(newFormDto);
 
         newForm.setSectors(sectors);
         formRepository.save(newForm);
@@ -65,38 +40,12 @@ public class FormServiceImpl implements FormService {
 
     }
 
-
     @Override
     public FormDtoResponse update(Long id, FormDtoRequest updatedFormDto) throws FormNotFoundException {
         Optional<Form> formData = formRepository.findById(id);
         if (formData.isPresent()) {
 
-            Set<Integer> strSectors = updatedFormDto.getSectorsId();
-            Set<Sector> sectors = new HashSet<>();
-
-            if (strSectors == null) {
-                Sector sectorManufacturing = sectorRepository.findById(1)
-                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                sectors.add(sectorManufacturing);
-            } else {
-                strSectors.forEach(sector -> {
-                    switch (sector) {
-                        case 19:
-                            Sector sectorConstructionMaterials = sectorRepository.findById(19)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            sectors.add(sectorConstructionMaterials);
-
-                            break;
-                        case 18:
-                            Sector sectorElectronicsOptics = sectorRepository.findById(18)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            sectors.add(sectorElectronicsOptics);
-
-
-                    }
-
-                });
-            }
+            Set<Sector> sectors = parseSectorIds(updatedFormDto);
 
             Form fromDBForm = formRepository.findById(id)
                     .orElseThrow(() -> new FormNotFoundException("No form found with Id = " + id));
@@ -119,5 +68,46 @@ public class FormServiceImpl implements FormService {
                 .orElseThrow(() -> new FormNotFoundException("No form found with Id = " + id));
         return formDtoMapper.toFormDtoResponse(formData);
     }
+
+    private Set<Sector> parseSectorIds(FormDtoRequest newFormDto) {
+        Set<Integer> strSectors = newFormDto.getSectorsId();
+        Set<Sector> sectors = new HashSet<>();
+
+            strSectors.forEach(sector -> {
+                switch (sector) {
+                    case 1:
+                        Sector sectorManufacturing = sectorRepository.findById(1)
+                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
+                        sectors.add(sectorManufacturing);
+                        break;
+
+                    case 19:
+                        Sector sectorConstructionMaterials = sectorRepository.findById(19)
+                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
+                        sectors.add(sectorConstructionMaterials);
+                        break;
+
+                    case 18:
+                        Sector sectorElectronicsOptics = sectorRepository.findById(18)
+                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
+                        sectors.add(sectorElectronicsOptics);
+                        break;
+
+                    case 6:
+                        Sector sectorFoodBeverage = sectorRepository.findById(6)
+                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
+                        sectors.add(sectorFoodBeverage);
+                        break;
+
+
+                }
+
+            });
+
+
+        return sectors;
+    }
+
+
 
 }
