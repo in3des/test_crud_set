@@ -42,13 +42,13 @@ public class FormServiceImpl implements FormService {
         } else {
             strSectors.forEach(sector -> {
                 switch (sector) {
-                    case 1:
+                    case 19:
                         Sector sectorConstructionMaterials = sectorRepository.findById(19)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         sectors.add(sectorConstructionMaterials);
 
                         break;
-                    case 19:
+                    case 18:
                         Sector sectorElectronicsOptics = sectorRepository.findById(18)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         sectors.add(sectorElectronicsOptics);

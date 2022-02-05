@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,23 +33,13 @@ public class FormController {
     private final SectorRepository sectorRepository;
 
     @PostMapping("/form")
-    public ResponseEntity<FormDtoResponse> create(FormDtoRequest formDto) {
+    public ResponseEntity<FormDtoResponse> create(@RequestBody FormDtoRequest formDto) {
         FormDtoResponse newFormDto = formService.create(formDto);
         return ResponseEntity.status(HttpStatus.OK).body(newFormDto);
     }
 
-//    @PostMapping("/formcheck")
-//    public String create22(FormDtoRequest formDto) {
-//        return "bad happens";
-//    }
-
-//    @PostMapping("/formcheck")
-//    public String create22(Form form) {
-//        return form.toString();
-//    }
-
     @PostMapping("/formcheck")
-    public ResponseEntity<?> create22(FormDtoRequest newFormDto) {
+    public ResponseEntity<?> create22(@RequestBody FormDtoRequest newFormDto) {
 //        Form newForm = formRepository.save(formDtoMapper.toFormEntity(newFormDto));
 
         // Create new form
@@ -67,13 +58,13 @@ public class FormController {
         } else {
             strSectors.forEach(sector -> {
                 switch (sector) {
-                    case 1:
+                    case 19:
                         Sector sectorConstructionMaterials = sectorRepository.findById(19)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         sectors.add(sectorConstructionMaterials);
 
                         break;
-                    case 19:
+                    case 18:
                         Sector sectorElectronicsOptics = sectorRepository.findById(18)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         sectors.add(sectorElectronicsOptics);
@@ -84,12 +75,13 @@ public class FormController {
         newForm.setSectors(sectors);
         formRepository.save(newForm);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+//        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.status(HttpStatus.OK).body(newFormDto);
 
     }
 
     @PutMapping("/form/{id}")
-    public ResponseEntity<FormDtoResponse> update(@PathVariable Long id, FormDtoRequest formDto) throws FormNotFoundException {
+    public ResponseEntity<FormDtoResponse> update(@PathVariable Long id, @RequestBody FormDtoRequest formDto) throws FormNotFoundException {
         FormDtoResponse newFormDto = formService.update(id, formDto);
         return ResponseEntity.status(HttpStatus.OK).body(newFormDto);
     }
