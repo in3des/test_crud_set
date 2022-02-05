@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-//@Accessors(chain = true)
 @Table(name = "sectors")
 public class Sector {
     @Id

@@ -2,24 +2,13 @@ package com.myform.test.controller;
 
 import com.myform.test.dto.FormDtoRequest;
 import com.myform.test.dto.FormDtoResponse;
-import com.myform.test.dto.MessageResponse;
 import com.myform.test.exception.FormNotFoundException;
-import com.myform.test.model.Form;
-import com.myform.test.model.Sector;
-import com.myform.test.repository.FormRepository;
-import com.myform.test.repository.SectorRepository;
-//import com.myform.test.service.FormService;
 import com.myform.test.service.FormService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Tag(name = "Forms", description = "FormRestController API v1")
 //@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
@@ -29,8 +18,6 @@ import java.util.Set;
 public class FormController {
 
     private final FormService formService;
-    private final FormRepository formRepository;
-    private final SectorRepository sectorRepository;
 
     @PostMapping("/form")
     public ResponseEntity<FormDtoResponse> create(@RequestBody FormDtoRequest formDto) {

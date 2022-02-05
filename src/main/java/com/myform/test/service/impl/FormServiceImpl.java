@@ -73,37 +73,11 @@ public class FormServiceImpl implements FormService {
         Set<Integer> strSectors = newFormDto.getSectorsId();
         Set<Sector> sectors = new HashSet<>();
 
-            strSectors.forEach(sector -> {
-                switch (sector) {
-                    case 1:
-                        Sector sectorManufacturing = sectorRepository.findById(1)
-                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
-                        sectors.add(sectorManufacturing);
-                        break;
-
-                    case 19:
-                        Sector sectorConstructionMaterials = sectorRepository.findById(19)
-                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
-                        sectors.add(sectorConstructionMaterials);
-                        break;
-
-                    case 18:
-                        Sector sectorElectronicsOptics = sectorRepository.findById(18)
-                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
-                        sectors.add(sectorElectronicsOptics);
-                        break;
-
-                    case 6:
-                        Sector sectorFoodBeverage = sectorRepository.findById(6)
-                                .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
-                        sectors.add(sectorFoodBeverage);
-                        break;
-
-
-                }
-
-            });
-
+        for (int id:strSectors) {
+            Sector sectorAdd = sectorRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
+            sectors.add(sectorAdd);
+        }
 
         return sectors;
     }
