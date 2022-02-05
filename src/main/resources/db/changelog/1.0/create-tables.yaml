@@ -1,0 +1,116 @@
+databaseChangeLog:
+- changeSet:
+    id: 1643977606600-1
+    author: in3des (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: form_sectors_pkey
+            name: form_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: form_sectors_pkey
+            name: sector_id
+            type: BIGINT
+        tableName: form_sectors
+- changeSet:
+    id: 1643977606600-2
+    author: in3des (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: forms_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: agreement
+            type: BOOLEAN
+        - column:
+            constraints:
+              nullable: false
+            name: username
+            type: VARCHAR(255)
+        tableName: forms
+- changeSet:
+    id: 1643977606600-3
+    author: in3des (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: sectors_pkey
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: parent_id
+            type: BIGINT
+        tableName: sectors
+- changeSet:
+    id: 1643977606600-5
+    author: in3des (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: form_id
+        baseTableName: form_sectors
+        constraintName: fk3ab5n65losyl9ncpqsc4j68s0
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: forms
+        validate: true
+- changeSet:
+    id: 1643977606600-6
+    author: in3des (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: sector_id
+        baseTableName: form_sectors
+        constraintName: fkpqk7fns7txp2176ewt0ngjewg
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: sectors
+        validate: true
+- changeSet:
+    id: 1643977606600-7
+    author: in3des (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: parent_id
+        baseTableName: sectors
+        constraintName: fkq1348ewyn6hb4vr2yypo2ofcy
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: sectors
+        validate: true
+

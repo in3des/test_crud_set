@@ -1,0 +1,26 @@
+databaseChangeLog:
+    - changeSet:
+        id: 1643977606600-4
+        author: in3des (generated)
+        changes:
+        - loadData:
+            columns:
+            - column:
+                header: id
+                name: id
+                type: NUMERIC
+            - column:
+                header: name
+                name: name
+                type: STRING
+            - column:
+                header: parent_id
+                name: parent_id
+                type: NUMERIC
+            commentLineStartsWith: '#'
+            encoding: UTF-8
+            file: data/sectors.csv
+            quotchar: '"'
+            separator: ','
+            relativeToChangelogFile: true
+            tableName: sectors
