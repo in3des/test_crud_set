@@ -7,8 +7,6 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
-//@Getter
-//@Setter
 public class FormDtoRequest {
     @NotBlank
     @Size(min = 3, max = 20)

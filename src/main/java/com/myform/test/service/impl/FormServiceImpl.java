@@ -66,16 +66,70 @@ public class FormServiceImpl implements FormService {
 
     }
 
+//    @Override
+//    public FormDtoResponse update(Long id, FormDtoRequest updatedFormDto) throws FormNotFoundException {
+//        Optional<Form> formData = formRepository.findById(id);
+//        if (formData.isPresent()) {
+//            Form updatedForm = formRepository.save(formDtoMapper.toFormEntity(updatedFormDto));
+//            return formDtoMapper.toFormDtoResponse(updatedForm);
+//        } else {
+//            throw new FormNotFoundException("Form not found with id : " + id);
+//        }
+//    }
+
+
     @Override
     public FormDtoResponse update(Long id, FormDtoRequest updatedFormDto) throws FormNotFoundException {
         Optional<Form> formData = formRepository.findById(id);
         if (formData.isPresent()) {
-            Form updatedForm = formRepository.save(formDtoMapper.toFormEntity(updatedFormDto));
-            return formDtoMapper.toFormDtoResponse(updatedForm);
+
+            // Create new form
+//            Form updatedForm = new Form(updatedFormDto.getUsername(),
+//                    updatedFormDto.getAgreement());
+
+            Set<Integer> strSectors = updatedFormDto.getSectorsId();
+            Set<Sector> sectors = new HashSet<>();
+
+            if (strSectors == null) {
+                Sector sectorManufacturing = sectorRepository.findById(1)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                sectors.add(sectorManufacturing);
+            } else {
+                strSectors.forEach(sector -> {
+                    switch (sector) {
+                        case 19:
+                            Sector sectorConstructionMaterials = sectorRepository.findById(19)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            sectors.add(sectorConstructionMaterials);
+
+                            break;
+                        case 18:
+                            Sector sectorElectronicsOptics = sectorRepository.findById(18)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            sectors.add(sectorElectronicsOptics);
+
+
+                    }
+
+                });
+            }
+
+//            updatedForm.setSectors(sectors);
+
+            Form fromDBForm = formRepository.findById(id)
+                    .orElseThrow(() -> new FormNotFoundException("No form found with Id = " + id));
+            fromDBForm.setUsername(updatedFormDto.getUsername());
+            fromDBForm.setAgreement(updatedFormDto.getAgreement());
+            fromDBForm.setSectors(sectors);
+
+            formRepository.save(fromDBForm);
+
+            return formDtoMapper.toFormDtoResponse(fromDBForm);
         } else {
             throw new FormNotFoundException("Form not found with id : " + id);
         }
     }
+
 
     @Override
     public FormDtoResponse getFormById(Long id) throws FormNotFoundException {
