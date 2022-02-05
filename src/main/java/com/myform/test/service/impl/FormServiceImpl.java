@@ -26,7 +26,6 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public FormDtoResponse create(FormDtoRequest newFormDto) {
-//        Form newForm = formRepository.save(formDtoMapper.toFormEntity(newFormDto));
 
         // Create new form
         Form newForm = new Form(newFormDto.getUsername(),
@@ -66,26 +65,11 @@ public class FormServiceImpl implements FormService {
 
     }
 
-//    @Override
-//    public FormDtoResponse update(Long id, FormDtoRequest updatedFormDto) throws FormNotFoundException {
-//        Optional<Form> formData = formRepository.findById(id);
-//        if (formData.isPresent()) {
-//            Form updatedForm = formRepository.save(formDtoMapper.toFormEntity(updatedFormDto));
-//            return formDtoMapper.toFormDtoResponse(updatedForm);
-//        } else {
-//            throw new FormNotFoundException("Form not found with id : " + id);
-//        }
-//    }
-
 
     @Override
     public FormDtoResponse update(Long id, FormDtoRequest updatedFormDto) throws FormNotFoundException {
         Optional<Form> formData = formRepository.findById(id);
         if (formData.isPresent()) {
-
-            // Create new form
-//            Form updatedForm = new Form(updatedFormDto.getUsername(),
-//                    updatedFormDto.getAgreement());
 
             Set<Integer> strSectors = updatedFormDto.getSectorsId();
             Set<Sector> sectors = new HashSet<>();
@@ -114,8 +98,6 @@ public class FormServiceImpl implements FormService {
                 });
             }
 
-//            updatedForm.setSectors(sectors);
-
             Form fromDBForm = formRepository.findById(id)
                     .orElseThrow(() -> new FormNotFoundException("No form found with Id = " + id));
             fromDBForm.setUsername(updatedFormDto.getUsername());
@@ -133,7 +115,6 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public FormDtoResponse getFormById(Long id) throws FormNotFoundException {
-//        Optional<Form> formData = formRepository.findById(id);
         Form formData = formRepository.findById(id)
                 .orElseThrow(() -> new FormNotFoundException("No form found with Id = " + id));
         return formDtoMapper.toFormDtoResponse(formData);
