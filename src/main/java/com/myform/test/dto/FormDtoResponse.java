@@ -11,4 +11,5 @@ public class FormDtoResponse {
     private String username;
     private Boolean agreement;
     private Set<Sector> sectors;
+
 }

@@ -70,10 +70,10 @@ public class FormServiceImpl implements FormService {
     }
 
     private Set<Sector> parseSectorIds(FormDtoRequest newFormDto) {
-        Set<Integer> strSectors = newFormDto.getSectorsId();
+        Set<Integer> intSectors = newFormDto.getSectorsId();
         Set<Sector> sectors = new HashSet<>();
 
-        for (int id:strSectors) {
+        for (int id:intSectors) {
             Sector sectorAdd = sectorRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Error: Sector is not found."));
             sectors.add(sectorAdd);
