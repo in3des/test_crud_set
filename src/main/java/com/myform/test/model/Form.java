@@ -1,6 +1,7 @@
 package com.myform.test.model;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +13,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
 @ToString
 @Table(name = "forms")
 public class Form {
@@ -38,4 +41,5 @@ public class Form {
         this.username = username;
         this.agreement = agreement;
     }
+
 }
