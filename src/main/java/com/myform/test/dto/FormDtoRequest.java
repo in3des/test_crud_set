@@ -9,10 +9,6 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Getter
-//@Setter
 @Accessors(chain = true)
 public class FormDtoRequest {
 

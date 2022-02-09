@@ -6,11 +6,13 @@ import com.myform.test.model.Sector;
 import com.myform.test.repository.SectorRepository;
 import com.myform.test.service.SectorService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+//@RequiredArgsConstructor
 @AllArgsConstructor
 public class SectorServiceImpl implements SectorService {
 
